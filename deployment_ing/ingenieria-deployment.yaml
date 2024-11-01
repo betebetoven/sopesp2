@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingenieria-deployment
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ingenieria
+  template:
+    metadata:
+      labels:
+        app: ingenieria
+    spec:
+      containers:
+        - name: ingenieria
+          image: gcr.io/servicio-440415/ingservice:latest
+          ports:
+            - containerPort: 8080

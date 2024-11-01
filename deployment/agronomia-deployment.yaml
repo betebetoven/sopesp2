@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agronomia-deployment
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: agronomia
+  template:
+    metadata:
+      labels:
+        app: agronomia
+    spec:
+      containers:
+        - name: agronomia
+          image: gcr.io/servicio-440415/servicio:latest
+          ports:
+            - containerPort: 8081

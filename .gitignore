@@ -1,0 +1,37 @@
+# General OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.pyo
+*.egg-info/
+
+# Go (agronomia module)
+agronomia/go.sum
+
+# Rust (ingenieria module)
+ingenieria/target/
+ingenieria/Cargo.lock
+
+# Node.js (if any frontend is added)
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Environment and config files
+.env
+*.config
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
