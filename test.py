@@ -47,11 +47,17 @@ def main():
             "discipline": 1
         },
         {
-            "student": "Jane Smith",
+            "student": "Jane Smith docker agro",
             "age": 22,
             "faculty": "Agronomia",
             "discipline": 2
-        }
+        },
+        {
+            "student": "John Doe",
+            "age": 20,
+            "faculty": "Ingenieria",
+            "discipline": 2
+        },
     ]
     
     # Test both services

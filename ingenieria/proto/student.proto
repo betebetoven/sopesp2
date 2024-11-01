@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package student;
+option go_package = "discipline2-service/proto";
+
+service StudentService {
+  rpc ProcessDiscipline2Student (Student) returns (Response) {}
+}
+
+message Student {
+  string student = 1;
+  uint32 age = 2;
+  string faculty = 3;
+  uint32 discipline = 4;
+}
+
+message Response {
+  string message = 1;
+}
