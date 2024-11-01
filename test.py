@@ -42,18 +42,18 @@ def main():
     test_cases = [
         {
             "student": "John Doe",
-            "age": 20,
+            "age": 33,
             "faculty": "Ingenieria",
-            "discipline": 1
+            "discipline": 2
         },
         {
-            "student": "Jane Smith docker agro",
+            "student": "Macaco test de kafka 3",
             "age": 22,
             "faculty": "Agronomia",
             "discipline": 2
         },
         {
-            "student": "John Doe",
+            "student": "Alberto Hernandez test de kafka 3",
             "age": 20,
             "faculty": "Ingenieria",
             "discipline": 2

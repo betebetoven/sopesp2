@@ -18,3 +18,14 @@ spec:
           image: gcr.io/servicio-440415/discipline2-service:latest
           ports:
             - containerPort: 50051
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: "/secrets/key.json"
+          volumeMounts:
+            - name: pubsub-key
+              mountPath: "/secrets"
+              readOnly: true
+      volumes:
+        - name: pubsub-key
+          secret:
+            secretName: pubsub-key
