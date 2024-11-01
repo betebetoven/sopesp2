@@ -37,7 +37,7 @@ def test_add_student_endpoint(base_url: str, student_data: Dict) -> None:
         print(f"❌ Add student test failed: {str(e)}")
 
 def main():
-    base_url = "http://localhost:8080"
+    base_url = "http://localhost:8081"
     
     test_cases = [
         {
