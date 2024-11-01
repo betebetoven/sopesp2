@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: agronomia
-          image: gcr.io/servicio-440415/servicio:latest
+          image: gcr.io/servicio-440415/agronomia:latest
           ports:
             - containerPort: 8081

@@ -36,7 +36,7 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 
 func sendToGrpc(student StudentInfo) error {
     // Create gRPC connection
-    conn, err := grpc.Dial("discipline2-container:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+    conn, err := grpc.Dial("discipline2-service:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
     if err != nil {
         return err
     }
