@@ -1,0 +1,36 @@
+# Update for discipline services
+apiVersion: v1
+kind: Service
+metadata:
+  name: discipline1-service
+  labels:
+    monitor: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: discipline2-service
+  labels:
+    monitor: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: discipline3-service
+  labels:
+    monitor: "true"
+---
+# Update for faculty services
+apiVersion: v1
+kind: Service
+metadata:
+  name: agronomia-service
+  labels:
+    monitor: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingenieria-service
+  labels:
+    monitor: "true"

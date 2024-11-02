@@ -24,6 +24,7 @@ ingenieria/Cargo.lock
 
 # Node.js (if any frontend is added)
 node_modules/
+grafana-data/grafana
 
 # Logs
 logs/

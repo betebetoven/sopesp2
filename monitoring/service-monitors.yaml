@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: services-monitor
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      monitor: "true"  # We'll add this label to our services
+  endpoints:
+  - port: http
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: grpc-services-monitor
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      monitor: "true"
+  endpoints:
+  - port: grpc
