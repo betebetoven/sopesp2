@@ -33,7 +33,16 @@ async fn health_check() -> impl Responder {
 }
 
 async fn send_to_grpc(student: &StudentInfo) -> Result<String, Box<dyn std::error::Error>> {
-    let mut client = StudentServiceClient::connect("http://discipline2-service:50051").await?;
+    // Determine which gRPC service endpoint to use based on discipline
+    let service_url = match student.discipline {
+        1 => "http://discipline1-service:50051",
+        2 => "http://discipline2-service:50051",
+        3 => "http://discipline3-service:50051",
+        _ => return Err("Invalid discipline".into()),
+    };
+
+    // Connect to the determined gRPC service
+    let mut client = StudentServiceClient::connect(service_url).await?;
 
     let request = Request::new(Student {
         student: student.student.clone(),
@@ -61,16 +70,14 @@ async fn add_student(student_info: web::Json<StudentInfo>) -> impl Responder {
         student_info.student, student_info.age, student_info.faculty, student_info.discipline
     );
 
-    // If discipline is 2, send to gRPC service
-    if student_info.discipline == 2 {
-        match send_to_grpc(&student_info).await {
-            Ok(response) => {
-                println!("gRPC Service Response: {}", response);
-            }
-            Err(e) => {
-                println!("Error sending to gRPC service: {}", e);
-                return HttpResponse::InternalServerError().body("Error processing discipline 2 student");
-            }
+    // Send to appropriate gRPC service based on discipline
+    match send_to_grpc(&student_info).await {
+        Ok(response) => {
+            println!("gRPC Service Response: {}", response);
+        }
+        Err(e) => {
+            println!("Error sending to gRPC service: {}", e);
+            return HttpResponse::InternalServerError().body("Error processing student information");
         }
     }
 

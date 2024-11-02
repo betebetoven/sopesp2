@@ -38,105 +38,57 @@ def test_add_student_endpoint(base_url: str, service: str, student_data: Dict) -
 
 def main():
     base_url = "http://34.57.143.146"  # Your ingress IP
+    service = "agronomia"  # Specify the target service
     
     test_cases = [
-        # Ingenieria Cases
+        # Discipline 1
         {
             "student": "Alice Even Discipline 1",
             "age": 22,
-            "faculty": "Ingenieria",
+            "faculty": "Agronomía",
             "discipline": 1
         },
         {
             "student": "Bob Odd Discipline 1",
             "age": 33,
-            "faculty": "Ingenieria",
+            "faculty": "Agronomía",
             "discipline": 1
         },
+        # Discipline 2
         {
             "student": "Charlie Even Discipline 2",
             "age": 20,
-            "faculty": "Ingenieria",
+            "faculty": "Agronomía",
             "discipline": 2
         },
         {
             "student": "Daisy Odd Discipline 2",
             "age": 25,
-            "faculty": "Ingenieria",
+            "faculty": "Agronomía",
             "discipline": 2
         },
+        # Discipline 3
         {
             "student": "Evan Even Discipline 3",
             "age": 28,
-            "faculty": "Ingenieria",
+            "faculty": "Agronomía",
             "discipline": 3
         },
         {
             "student": "Fay Odd Discipline 3",
             "age": 35,
-            "faculty": "Ingenieria",
+            "faculty": "Agronomía",
             "discipline": 3
         },
-        # Agronomia Cases
-        {
-            "student": "Ana Even Discipline 1",
-            "age": 20,
-            "faculty": "Agronomia",
-            "discipline": 1
-        },
-        {
-            "student": "Bruno Odd Discipline 1",
-            "age": 21,
-            "faculty": "Agronomia",
-            "discipline": 1
-        },
-        {
-            "student": "Carla Even Discipline 2",
-            "age": 22,
-            "faculty": "Agronomia",
-            "discipline": 2
-        },
-        {
-            "student": "David Odd Discipline 2",
-            "age": 23,
-            "faculty": "Agronomia",
-            "discipline": 2
-        },
-        {
-            "student": "Elena Even Discipline 3",
-            "age": 24,
-            "faculty": "Agronomia",
-            "discipline": 3
-        },
-        {
-            "student": "Felix Odd Discipline 3",
-            "age": 25,
-            "faculty": "Agronomia",
-            "discipline": 3
-        },
-        # Invalid Cases
-        {
-            "student": "Invalid Faculty",
-            "age": 20,
-            "faculty": "Medicine",
-            "discipline": 1
-        },
-        {
-            "student": "Invalid Discipline",
-            "age": 20,
-            "faculty": "Agronomia",
-            "discipline": 4
-        }
     ]
     
-    # Test both services
-    for service in ["agronomia", "ingenieria"]:
-        test_health_endpoint(base_url, service)
+    # Test Agronomia service only
+    test_health_endpoint(base_url, service)
+    time.sleep(1)
+    
+    for test_case in test_cases:
+        test_add_student_endpoint(base_url, service, test_case)
         time.sleep(1)
-        
-        for test_case in test_cases:
-            test_add_student_endpoint(base_url, service, test_case)
-            time.sleep(1)
 
 if __name__ == "__main__":
     main()

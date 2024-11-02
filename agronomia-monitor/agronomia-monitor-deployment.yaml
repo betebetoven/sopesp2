@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agronomia-monitor
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agronomia-monitor
+  template:
+    metadata:
+      labels:
+        app: agronomia-monitor
+    spec:
+      containers:
+      - name: agronomia-monitor
+        image: gcr.io/servicio-440415/agronomia-monitor:latest
+        env:
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/secrets/key.json"
+        volumeMounts:
+        - name: pubsub-key
+          mountPath: "/secrets"
+          readOnly: true
+      volumes:
+      - name: pubsub-key
+        secret:
+          secretName: pubsub-key
