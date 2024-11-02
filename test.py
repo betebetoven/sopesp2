@@ -44,16 +44,16 @@ def main():
             "student": "John Doe",
             "age": 33,
             "faculty": "Ingenieria",
-            "discipline": 2
+            "discipline": 1
         },
         {
             "student": "Macaco test de kafka 3",
             "age": 22,
             "faculty": "Agronomia",
-            "discipline": 2
+            "discipline": 1
         },
         {
-            "student": "Alberto Hernandez test de kafka 3",
+            "student": "Alberto Hernandez test de kafka 3 por cuarta vez",
             "age": 20,
             "faculty": "Ingenieria",
             "discipline": 2

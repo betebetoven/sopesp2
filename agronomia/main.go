@@ -4,6 +4,7 @@ import (
     "context"
     "encoding/json"
     "log"
+    "fmt"
     "net/http"
     "time"
 
@@ -35,8 +36,21 @@ func healthCheck(w http.ResponseWriter, r *http.Request) {
 }
 
 func sendToGrpc(student StudentInfo) error {
+    // Select the correct gRPC service based on discipline
+    var serviceURL string
+    switch student.Discipline {
+    case 1:
+        serviceURL = "discipline1-service:50051"
+    case 2:
+        serviceURL = "discipline2-service:50051"
+    case 3:
+        serviceURL = "discipline3-service:50051"
+    default:
+        return fmt.Errorf("invalid discipline: %d", student.Discipline)
+    }
+
     // Create gRPC connection
-    conn, err := grpc.Dial("discipline2-service:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+    conn, err := grpc.Dial(serviceURL, grpc.WithTransportCredentials(insecure.NewCredentials()))
     if err != nil {
         return err
     }
@@ -50,13 +64,13 @@ func sendToGrpc(student StudentInfo) error {
     // Convert StudentInfo to protobuf Student
     pbStudent := &pb.Student{
         Student:    student.Student,
-        Age:       uint32(student.Age),
-        Faculty:   student.Faculty,
+        Age:        uint32(student.Age),
+        Faculty:    student.Faculty,
         Discipline: uint32(student.Discipline),
     }
 
     // Call gRPC service
-    response, err := c.ProcessDiscipline2Student(ctx, pbStudent)
+    response, err := c.ProcessDiscipline2Student(ctx, pbStudent) // Assuming this method name is used across services
     if err != nil {
         return err
     }
@@ -64,6 +78,7 @@ func sendToGrpc(student StudentInfo) error {
     log.Printf("gRPC Service Response: %s", response.Message)
     return nil
 }
+
 
 func addStudent(w http.ResponseWriter, r *http.Request) {
     if r.Method != http.MethodPost {
@@ -91,7 +106,7 @@ func addStudent(w http.ResponseWriter, r *http.Request) {
         student.Student, student.Age, student.Faculty, student.Discipline)
 
     // If discipline is 2, send to gRPC service
-    if student.Discipline == 2 {
+    if student.Discipline == 2 || student.Discipline == 3|| student.Discipline == 1 {
         if err := sendToGrpc(student); err != nil {
             log.Printf("Error sending to gRPC service: %v", err)
             http.Error(w, "Error processing discipline 2 student", http.StatusInternalServerError)
@@ -110,7 +125,7 @@ func main() {
     http.HandleFunc("/health", healthCheck)
     http.HandleFunc("/add_student", addStudent)
 
-    log.Println("Server starting on :8081...")
+    log.Println("Server starting on added the validations :8081...")
     if err := http.ListenAndServe(":8081", nil); err != nil {
         log.Fatal(err)
     }

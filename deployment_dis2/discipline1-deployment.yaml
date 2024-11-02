@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: discipline1-deployment
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: discipline1
+  template:
+    metadata:
+      labels:
+        app: discipline1
+    spec:
+      containers:
+        - name: discipline1
+          image: gcr.io/servicio-440415/discipline2-service:latest
+          ports:
+            - containerPort: 50051
+          env:
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: "/secrets/key.json"
+          volumeMounts:
+            - name: pubsub-key
+              mountPath: "/secrets"
+              readOnly: true
+      volumes:
+        - name: pubsub-key
+          secret:
+            secretName: pubsub-key
